@@ -1,0 +1,39 @@
+{
+  "name": "microsoft-edgedriver",
+  "version": "0.0.0",
+  "description": "Install and wrap msedgedriver in Node.js",
+  "keywords": [
+    "msedgedriver",
+    "webdriver"
+  ],
+  "scripts": {
+    "lint:git": "commitlint --default-branch main",
+    "lint:js": "eslint . --ext js,json",
+    "lint:md": "remark -f README.md",
+    "release": "standard-version --commit-all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/CrowdStrike/microsoft-edgedriver.git"
+  },
+  "author": "Kelly Selden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CrowdStrike/microsoft-edgedriver/issues"
+  },
+  "homepage": "https://github.com/CrowdStrike/microsoft-edgedriver#readme",
+  "engines": {
+    "node": ">=14.15"
+  },
+  "devDependencies": {
+    "@crowdstrike/commitlint": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-crowdstrike": "^8.0.0",
+    "eslint-config-crowdstrike-node": "^3.0.0",
+    "eslint-plugin-json-files": "^1.0.0",
+    "eslint-plugin-node": "^11.0.0",
+    "remark-cli": "^11.0.0",
+    "remark-preset-lint-crowdstrike": "^2.0.0",
+    "renovate-config-standard": "^2.0.0"
+  }
+}
