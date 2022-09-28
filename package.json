@@ -2,6 +2,14 @@
   "name": "microsoft-edgedriver",
   "version": "0.0.0",
   "description": "Install and wrap msedgedriver in Node.js",
+  "bin": {
+    "msedgedriver": "bin/msedgedriver.js"
+  },
+  "main": "src",
+  "files": [
+    "bin",
+    "src"
+  ],
   "keywords": [
     "msedgedriver",
     "webdriver"
@@ -10,6 +18,8 @@
     "lint:git": "commitlint --default-branch main",
     "lint:js": "eslint . --ext js,json",
     "lint:md": "remark -f README.md",
+    "install": "node bin/install-msedgedriver",
+    "start": "node bin/msedgedriver.js",
     "release": "standard-version --commit-all"
   },
   "repository": {
@@ -24,6 +34,11 @@
   "homepage": "https://github.com/CrowdStrike/microsoft-edgedriver#readme",
   "engines": {
     "node": ">=14.15"
+  },
+  "dependencies": {
+    "execa": "^5.0.0",
+    "extract-zip": "^2.0.1",
+    "got": "^11.8.5"
   },
   "devDependencies": {
     "@crowdstrike/commitlint": "^5.0.0",
