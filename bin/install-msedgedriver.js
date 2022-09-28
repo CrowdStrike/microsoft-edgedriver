@@ -9,6 +9,7 @@ const path = require('path');
 const extract = require('extract-zip');
 const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
+const { createTmpDir } = require('../src/tmp');
 
 const platform = os.platform();
 const arch = os.arch();
@@ -59,7 +60,9 @@ function getDriverPath(driverName = getDriverName()) {
 async function install() {
   let downloadName = getDownloadName();
 
-  let downloadPath = path.join(__dirname, downloadName);
+  let tmpDir = await createTmpDir();
+
+  let downloadPath = path.join(tmpDir, downloadName);
 
   let version;
 
