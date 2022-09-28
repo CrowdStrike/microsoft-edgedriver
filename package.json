@@ -20,7 +20,12 @@
     "lint:md": "remark -f README.md",
     "install": "node bin/install-msedgedriver",
     "start": "node bin/msedgedriver.js",
-    "release": "standard-version --commit-all"
+    "release": "standard-version"
+  },
+  "standard-version": {
+    "scripts": {
+      "posttag": "git push --follow-tags --atomic"
+    }
   },
   "repository": {
     "type": "git",
@@ -49,6 +54,7 @@
     "eslint-plugin-node": "^11.0.0",
     "remark-cli": "^11.0.0",
     "remark-preset-lint-crowdstrike": "^2.0.0",
-    "renovate-config-standard": "^2.0.0"
+    "renovate-config-standard": "^2.0.0",
+    "standard-version": "9.5.0"
   }
 }
