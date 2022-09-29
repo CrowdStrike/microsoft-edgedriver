@@ -73,23 +73,27 @@ function getDriverPath(driverName = getDriverName()) {
 }
 
 async function install() {
-  let tmpPath = await createTmpDir();
-
   let version = await getDriverVersion();
-
-  let downloadPath = await download({ tmpPath, version });
 
   let driverName = getDriverName();
 
   let driverPath = await getDriverPath(driverName);
 
-  await extract({ downloadPath, driverName, driverPath });
+  await downloadAndExtract({ version, driverName, driverPath });
 
   console.log(`Edge WebDriver available at ${driverPath}`);
 
-  await fs.unlink(downloadPath);
-
   // await hackLocalBinSymlink();
+}
+
+async function downloadAndExtract({ version, driverName, driverPath }) {
+  let tmpPath = await createTmpDir();
+
+  let downloadPath = await download({ tmpPath, version });
+
+  await extract({ downloadPath, driverName, driverPath });
+
+  await fs.unlink(downloadPath);
 }
 
 async function download({ tmpPath, version }) {
