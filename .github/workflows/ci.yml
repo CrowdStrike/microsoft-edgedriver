@@ -35,3 +35,26 @@ jobs:
     - run: yarn install --frozen-lockfile
     - run: yarn lint:md
     - run: yarn lint:js
+
+  test:
+    needs: lint
+
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+        node:
+        - 14
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node }}
+
+    - run: yarn install --frozen-lockfile
+    - run: yarn test
