@@ -90,6 +90,20 @@ async function install() {
     fs.createWriteStream(downloadPath),
   );
 
+  let driverName = getDriverName();
+
+  let driverPath = await getDriverPath(driverName);
+
+  await extract({ downloadPath, driverName, driverPath });
+
+  console.log(`Edge WebDriver available at ${driverPath}`);
+
+  await fs.unlink(downloadPath);
+
+  // await hackLocalBinSymlink();
+}
+
+async function extract({ downloadPath, driverName, driverPath }) {
   let tmpPath = path.resolve(__dirname, '../tmp');
 
   await fs.mkdir(tmpPath, { recursive: true });
@@ -98,21 +112,13 @@ async function install() {
 
   await extractZip(downloadPath, { dir: tmpPath });
 
-  let driverName = getDriverName();
-
   let tmpDriverPath = path.join(tmpPath, driverName);
 
-  let driverPath = getDriverPath(driverName);
+  await fs.mkdir(path.dirname(driverPath), { recursive: true });
 
   await fs.rename(tmpDriverPath, driverPath);
 
-  console.log(`Edge WebDriver available at ${driverPath}`);
-
   await fs.rm(tmpPath, { recursive: true, force: true });
-
-  await fs.unlink(downloadPath);
-
-  // await hackLocalBinSymlink();
 }
 
 // eslint-disable-next-line no-unused-vars
