@@ -84,7 +84,7 @@ async function install() {
     fs.createWriteStream(downloadPath),
   );
 
-  let tmpPath = path.resolve(__dirname, '..', 'tmp');
+  let tmpPath = path.resolve(__dirname, '../tmp');
 
   await fs.mkdir(tmpPath, { recursive: true });
 
