@@ -3711,6 +3711,11 @@ split@^1.0.0:
   dependencies:
     through "2"
 
+standard-node-template@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/standard-node-template/-/standard-node-template-3.0.0.tgz#f79e3a5ba0ba010f16db7b760ce999763da7071b"
+  integrity sha512-LJZZpCtM8OXIoLHh89TtzGHZoMRe099Exnt4PizmxVe5d55FZ3iH5uVhwXsr59d5Kn+sdNA6091dymdvdeHlsg==
+
 standard-version@9.5.0:
   version "9.5.0"
   resolved "https://registry.npmjs.org/standard-version/-/standard-version-9.5.0.tgz#851d6dcddf5320d5079601832aeb185dbf497949"
