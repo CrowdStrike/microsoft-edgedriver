@@ -2,5 +2,7 @@
 
 module.exports = {
   spec: ['test/**/*-test.js'],
-  parallel: true,
+
+  // We can't use this while they share the same bin location.
+  // parallel: true,
 };
