@@ -45,6 +45,21 @@ function getDownloadName() {
   return `edgedriver_${firstPart}${secondPart}.zip`;
 }
 
+async function getDriverVersion() {
+  let version;
+
+  if (process.env.EDGEDRIVER_VERSION) {
+    version = process.env.EDGEDRIVER_VERSION;
+  } else {
+    let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
+
+    // For example: '��102.0.1245.33\r\n'
+    version = body.replace(/[^\d.]/g, '');
+  }
+
+  return version;
+}
+
 function getDriverName() {
   if (platform === 'win32') {
     return 'msedgedriver.exe';
@@ -64,16 +79,7 @@ async function install() {
 
   let downloadPath = path.join(tmpDir, downloadName);
 
-  let version;
-
-  if (process.env.EDGEDRIVER_VERSION) {
-    version = process.env.EDGEDRIVER_VERSION;
-  } else {
-    let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
-
-    // For example: '��102.0.1245.33\r\n'
-    version = body.replace(/[^\d.]/g, '');
-  }
+  let version = await getDriverVersion();
 
   let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
 
