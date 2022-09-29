@@ -6,7 +6,7 @@ const got = require('got');
 const { promisify } = require('util');
 const fs = { ...require('fs'), ...require('fs').promises };
 const path = require('path');
-const extract = require('extract-zip');
+const extractZip = require('extract-zip');
 const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
 const { createTmpDir } = require('../src/tmp');
@@ -73,13 +73,33 @@ function getDriverPath(driverName = getDriverName()) {
 }
 
 async function install() {
+  let version = await getDriverVersion();
+
+  let driverName = getDriverName();
+
+  let driverPath = await getDriverPath(driverName);
+
+  await downloadAndExtract({ version, driverName, driverPath });
+
+  console.log(`Edge WebDriver available at ${driverPath}`);
+
+  // await hackLocalBinSymlink();
+}
+
+async function downloadAndExtract({ version, driverName, driverPath }) {
+  let tmpPath = await createTmpDir();
+
+  let downloadPath = await download({ tmpPath, version });
+
+  await extract({ downloadPath, driverName, driverPath });
+
+  await fs.unlink(downloadPath);
+}
+
+async function download({ tmpPath, version }) {
   let downloadName = getDownloadName();
 
-  let tmpDir = await createTmpDir();
-
-  let downloadPath = path.join(tmpDir, downloadName);
-
-  let version = await getDriverVersion();
+  let downloadPath = path.join(tmpPath, downloadName);
 
   let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
 
@@ -90,29 +110,25 @@ async function install() {
     fs.createWriteStream(downloadPath),
   );
 
+  return downloadPath;
+}
+
+async function extract({ downloadPath, driverName, driverPath }) {
   let tmpPath = path.resolve(__dirname, '../tmp');
 
   await fs.mkdir(tmpPath, { recursive: true });
 
   console.log(`Extracting ${downloadPath}...`);
 
-  await extract(downloadPath, { dir: tmpPath });
-
-  let driverName = getDriverName();
+  await extractZip(downloadPath, { dir: tmpPath });
 
   let tmpDriverPath = path.join(tmpPath, driverName);
 
-  let driverPath = getDriverPath(driverName);
+  await fs.mkdir(path.dirname(driverPath), { recursive: true });
 
   await fs.rename(tmpDriverPath, driverPath);
 
-  console.log(`Edge WebDriver available at ${driverPath}`);
-
   await fs.rm(tmpPath, { recursive: true, force: true });
-
-  await fs.unlink(downloadPath);
-
-  // await hackLocalBinSymlink();
 }
 
 // eslint-disable-next-line no-unused-vars
