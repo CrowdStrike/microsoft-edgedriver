@@ -73,22 +73,11 @@ function getDriverPath(driverName = getDriverName()) {
 }
 
 async function install() {
-  let downloadName = getDownloadName();
-
-  let tmpDir = await createTmpDir();
-
-  let downloadPath = path.join(tmpDir, downloadName);
+  let tmpPath = await createTmpDir();
 
   let version = await getDriverVersion();
 
-  let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
-
-  console.log(`Downloading ${downloadUrl}...`);
-
-  await pipeline(
-    got.stream(downloadUrl),
-    fs.createWriteStream(downloadPath),
-  );
+  let downloadPath = await download({ tmpPath, version });
 
   let driverName = getDriverName();
 
@@ -101,6 +90,23 @@ async function install() {
   await fs.unlink(downloadPath);
 
   // await hackLocalBinSymlink();
+}
+
+async function download({ tmpPath, version }) {
+  let downloadName = getDownloadName();
+
+  let downloadPath = path.join(tmpPath, downloadName);
+
+  let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
+
+  console.log(`Downloading ${downloadUrl}...`);
+
+  await pipeline(
+    got.stream(downloadUrl),
+    fs.createWriteStream(downloadPath),
+  );
+
+  return downloadPath;
 }
 
 async function extract({ downloadPath, driverName, driverPath }) {
