@@ -5,11 +5,12 @@ const { expect } = require('../helpers/chai');
 const execa = require('execa');
 const fs = require('fs').promises;
 const { getDriverPath } = require('../../bin/install-msedgedriver');
+const path = require('path');
 
 const installerPath = require.resolve('../../bin/install-msedgedriver');
 const driverPath = getDriverPath();
 
-describe(function() {
+describe(path.basename(installerPath), function() {
   this.timeout(30e3);
 
   beforeEach(async function() {
