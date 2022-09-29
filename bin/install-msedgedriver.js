@@ -6,7 +6,7 @@ const got = require('got');
 const { promisify } = require('util');
 const fs = { ...require('fs'), ...require('fs').promises };
 const path = require('path');
-const extract = require('extract-zip');
+const extractZip = require('extract-zip');
 const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
 const { createTmpDir } = require('../src/tmp');
@@ -96,7 +96,7 @@ async function install() {
 
   console.log(`Extracting ${downloadPath}...`);
 
-  await extract(downloadPath, { dir: tmpPath });
+  await extractZip(downloadPath, { dir: tmpPath });
 
   let driverName = getDriverName();
 
