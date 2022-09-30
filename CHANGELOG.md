@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.3.1...v1.4.0) (2022-09-30)
+
+
+### Features
+
+* add version detection ([fd93c87](https://github.com/CrowdStrike/microsoft-edgedriver/commit/fd93c8708c9753d33400097f21e50a5338b45798))
+
+
+### Bug Fixes
+
+* await execa ([8e8ba6e](https://github.com/CrowdStrike/microsoft-edgedriver/commit/8e8ba6e71205d1743f0b0847a447ef34ea090893))
+
 ### [1.3.1](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.3.0...v1.3.1) (2022-09-30)
 
 
