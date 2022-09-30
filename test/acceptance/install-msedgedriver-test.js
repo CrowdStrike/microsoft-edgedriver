@@ -55,4 +55,22 @@ describe(path.basename(installerPath), function() {
 
     expect(ps.stdout).to.include(string);
   });
+
+  it('can detect the version', async function() {
+    if (process.platform === 'win32') {
+      return this.skip();
+    }
+
+    Object.assign(process.env, {
+      DETECT_EDGEDRIVER_VERSION: 'true',
+    });
+
+    driverPath = await getDriverPath();
+
+    let ps = await execa.node(installerPath);
+
+    expect(driverPath).to.be.a.file();
+
+    expect(ps.stdout).to.include('DETECT_EDGEDRIVER_VERSION=true, detected version ');
+  });
 });
