@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.1.0...v1.2.0) (2022-09-30)
+
+
+### Features
+
+* store bin by version ([e077763](https://github.com/CrowdStrike/microsoft-edgedriver/commit/e0777635bb6a20e9dc31535fc66a70852abbf116))
+* store bin in dir ([52bd92b](https://github.com/CrowdStrike/microsoft-edgedriver/commit/52bd92b82ff4f97aecdbe360921402a514129487))
+
 ## [1.1.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.0.0...v1.1.0) (2022-09-29)
 
 
