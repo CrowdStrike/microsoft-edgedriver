@@ -16,6 +16,8 @@ const arch = os.arch();
 
 const downloadHost = 'https://msedgedriver.azureedge.net';
 
+const driversRoot = path.join(__dirname, 'msedgedriver');
+
 function getDownloadName() {
   let firstPart;
   let secondPart;
@@ -68,8 +70,12 @@ function getDriverName() {
   }
 }
 
-function getDriverPath(driverName = getDriverName()) {
-  return path.resolve(__dirname, driverName);
+async function getDriverPath(version, driverName = getDriverName()) {
+  if (!version) {
+    version = await getDriverVersion();
+  }
+
+  return path.resolve(driversRoot, version, driverName);
 }
 
 async function install() {
@@ -77,7 +83,7 @@ async function install() {
 
   let driverName = getDriverName();
 
-  let driverPath = await getDriverPath(driverName);
+  let driverPath = await getDriverPath(version, driverName);
 
   await downloadAndExtract({ version, driverName, driverPath });
 
@@ -159,6 +165,7 @@ if (require.main === module) {
   install();
 } else {
   module.exports = {
+    driversRoot,
     getDriverPath,
   };
 }
