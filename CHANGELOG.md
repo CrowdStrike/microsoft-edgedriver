@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.2.0...v1.3.0) (2022-09-30)
+
+
+### Features
+
+* don't redownload existing versions ([ec92fd3](https://github.com/CrowdStrike/microsoft-edgedriver/commit/ec92fd3610b5065aa8ed6657334b5e975b7932da))
+
 ## [1.2.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.1.0...v1.2.0) (2022-09-30)
 
 
