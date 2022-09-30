@@ -16,7 +16,7 @@ const arch = os.arch();
 
 const downloadHost = 'https://msedgedriver.azureedge.net';
 
-const driversRoot = __dirname;
+const driversRoot = path.join(__dirname, 'msedgedriver');
 
 function getDownloadName() {
   let firstPart;
