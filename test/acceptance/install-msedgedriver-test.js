@@ -8,15 +8,18 @@ const { driversRoot, getDriverPath } = require('../../bin/install-msedgedriver')
 const path = require('path');
 
 const installerPath = require.resolve('../../bin/install-msedgedriver');
-const driverPath = getDriverPath();
 
 describe(path.basename(installerPath), function() {
   this.timeout(30e3);
 
   setUpObjectReset(process.env);
 
+  let driverPath;
+
   beforeEach(async function() {
     await fs.rm(driversRoot, { recursive: true, force: true });
+
+    driverPath = await getDriverPath();
   });
 
   it('works', async function() {
@@ -31,6 +34,8 @@ describe(path.basename(installerPath), function() {
     Object.assign(process.env, {
       EDGEDRIVER_VERSION: version,
     });
+
+    driverPath = await getDriverPath();
 
     let ps = await execa.node(installerPath);
 

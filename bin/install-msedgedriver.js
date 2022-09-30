@@ -70,8 +70,12 @@ function getDriverName() {
   }
 }
 
-function getDriverPath(driverName = getDriverName()) {
-  return path.resolve(driversRoot, driverName);
+async function getDriverPath(version, driverName = getDriverName()) {
+  if (!version) {
+    version = await getDriverVersion();
+  }
+
+  return path.resolve(driversRoot, version, driverName);
 }
 
 async function install() {
@@ -79,7 +83,7 @@ async function install() {
 
   let driverName = getDriverName();
 
-  let driverPath = await getDriverPath(driverName);
+  let driverPath = await getDriverPath(version, driverName);
 
   await downloadAndExtract({ version, driverName, driverPath });
 
