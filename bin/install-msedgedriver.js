@@ -161,6 +161,7 @@ if (require.main === module) {
   install();
 } else {
   module.exports = {
+    driversRoot,
     getDriverPath,
   };
 }
