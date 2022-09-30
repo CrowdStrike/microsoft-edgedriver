@@ -101,9 +101,9 @@ async function downloadAndExtract({ version, driverName, driverPath }) {
 
   let downloadPath = await download({ tmpPath, version });
 
-  await extract({ downloadPath, driverName, driverPath });
+  await extract({ tmpPath, downloadPath, driverName, driverPath });
 
-  await fs.unlink(downloadPath);
+  await fs.rm(tmpPath, { recursive: true, force: true });
 }
 
 async function download({ tmpPath, version }) {
@@ -123,11 +123,7 @@ async function download({ tmpPath, version }) {
   return downloadPath;
 }
 
-async function extract({ downloadPath, driverName, driverPath }) {
-  let tmpPath = path.resolve(__dirname, '../tmp');
-
-  await fs.mkdir(tmpPath, { recursive: true });
-
+async function extract({ tmpPath, downloadPath, driverName, driverPath }) {
   console.log(`Extracting ${downloadPath}...`);
 
   await extractZip(downloadPath, { dir: tmpPath });
@@ -137,8 +133,6 @@ async function extract({ downloadPath, driverName, driverPath }) {
   await fs.mkdir(path.dirname(driverPath), { recursive: true });
 
   await fs.rename(tmpDriverPath, driverPath);
-
-  await fs.rm(tmpPath, { recursive: true, force: true });
 }
 
 // eslint-disable-next-line no-unused-vars
