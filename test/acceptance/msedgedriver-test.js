@@ -11,7 +11,7 @@ const binPath = require.resolve('../../bin/msedgedriver');
 describe(path.basename(binPath), function() {
   this.timeout(30e3);
 
-  beforeEach(async function() {
+  before(async function() {
     await execa.node(installerPath);
   });
 
