@@ -7,7 +7,7 @@ const execa = require('execa');
 const { getDriverPath } = require('./install-msedgedriver');
 
 (async () => {
-  execa(await getDriverPath(), process.argv.slice(2), {
+  await execa(await getDriverPath(), process.argv.slice(2), {
     stdio: 'inherit',
   });
 })();
