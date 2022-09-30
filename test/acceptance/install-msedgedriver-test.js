@@ -4,7 +4,7 @@ const { describe, it, setUpObjectReset } = require('../helpers/mocha');
 const { expect } = require('../helpers/chai');
 const execa = require('execa');
 const fs = require('fs').promises;
-const { driversRoot, getDriverPath } = require('../../bin/install-msedgedriver');
+const { driversRoot, getDriverPath } = require('../../src');
 const path = require('path');
 
 const installerPath = require.resolve('../../bin/install-msedgedriver');
