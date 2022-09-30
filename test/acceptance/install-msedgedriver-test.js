@@ -43,4 +43,16 @@ describe(path.basename(installerPath), function() {
 
     expect(ps.stdout).to.include(version);
   });
+
+  it('doesn\'t redownload same version', async function() {
+    let string = `Found ${driverPath}, not downloading`;
+
+    let ps = await execa.node(installerPath);
+
+    expect(ps.stdout).to.not.include(string);
+
+    ps = await execa.node(installerPath);
+
+    expect(ps.stdout).to.include(string);
+  });
 });

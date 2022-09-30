@@ -4,7 +4,7 @@ require('../src/utils/throw-up');
 
 const got = require('got');
 const { promisify } = require('util');
-const fs = { ...require('fs'), ...require('fs').promises };
+const fs = { ...require('fs'), ...require('fs').promises, ...require('../src/fs') };
 const path = require('path');
 const extractZip = require('extract-zip');
 const pipeline = promisify(require('stream').pipeline);
@@ -85,7 +85,11 @@ async function install() {
 
   let driverPath = await getDriverPath(version, driverName);
 
-  await downloadAndExtract({ version, driverName, driverPath });
+  if (await fs.exists(driverPath)) {
+    console.log(`Found ${driverPath}, not downloading`);
+  } else {
+    await downloadAndExtract({ version, driverName, driverPath });
+  }
 
   console.log(`Edge WebDriver available at ${driverPath}`);
 
