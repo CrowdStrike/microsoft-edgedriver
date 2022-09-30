@@ -8,6 +8,8 @@ const extractZip = require('extract-zip');
 const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
 const { createTmpDir } = require('../src/tmp');
+const execa = require('execa');
+const yn = require('yn');
 
 const platform = os.platform();
 const arch = os.arch();
@@ -50,6 +52,20 @@ async function getDriverVersion() {
 
   if (process.env.EDGEDRIVER_VERSION) {
     version = process.env.EDGEDRIVER_VERSION;
+  } else if (yn(process.env.DETECT_EDGEDRIVER_VERSION)) {
+    const browserCmd = (() => {
+      switch (platform) {
+        case 'linux': return 'microsoft-edge';
+        case 'darwin': return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
+        default: throw new Error(`Platform "${platform}" not supported`);
+      }
+    })();
+
+    let ps = await execa(browserCmd, ['--version']);
+
+    version = ps.stdout.match(/(?:\d|\.)+/)[0];
+
+    console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
   } else {
     let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
 
