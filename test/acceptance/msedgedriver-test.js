@@ -6,7 +6,7 @@ const execa = require('execa');
 const path = require('path');
 
 const installerPath = require.resolve('../../bin/install-msedgedriver');
-const binPath = require.resolve('../../bin/msedgedriver');
+const binPath = require.resolve('../../bin/msedgedriver.js');
 
 describe(path.basename(binPath), function() {
   this.timeout(30e3);
