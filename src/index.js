@@ -170,7 +170,6 @@ async function hackLocalBinSymlink() {
 }
 
 module.exports = {
-  driversRoot,
   getDriverPath,
   install,
 };
