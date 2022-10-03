@@ -5,6 +5,7 @@ const { expect } = require('../helpers/chai');
 const execa = require('execa');
 const path = require('path');
 
+const oldVersion = '102.0.1245.33';
 const installerPath = require.resolve('../../bin/install-msedgedriver');
 const binPath = require.resolve('../../bin/msedgedriver.js');
 
@@ -38,10 +39,8 @@ describe(path.basename(binPath), function() {
   });
 
   it('can find bin even if different version', async function() {
-    let version = '102.0.1245.33';
-
     Object.assign(process.env, {
-      EDGEDRIVER_VERSION: version,
+      EDGEDRIVER_VERSION: oldVersion,
     });
 
     let ps = execa.node(binPath);

@@ -7,6 +7,7 @@ const fs = require('fs').promises;
 const { getDriverPath } = require('../../src');
 const path = require('path');
 
+const oldVersion = '102.0.1245.33';
 const installerPath = require.resolve('../../bin/install-msedgedriver');
 const driverPath = getDriverPath();
 
@@ -26,17 +27,15 @@ describe(path.basename(installerPath), function() {
   });
 
   it('can pin the version', async function() {
-    let version = '102.0.1245.33';
-
     Object.assign(process.env, {
-      EDGEDRIVER_VERSION: version,
+      EDGEDRIVER_VERSION: oldVersion,
     });
 
     let ps = await execa.node(installerPath);
 
     expect(driverPath).to.be.a.file();
 
-    expect(ps.stdout).to.include(version);
+    expect(ps.stdout).to.include(oldVersion);
   });
 
   it('doesn\'t redownload same version', async function() {
