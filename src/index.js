@@ -63,6 +63,7 @@ async function getDriverVersion() {
 
     let ps = await execa(browserCmd, ['--version']);
 
+    // "Microsoft Edge 105.0.1343.53 "
     version = ps.stdout.match(/(?:\d|\.)+/)[0];
 
     console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
