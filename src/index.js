@@ -84,12 +84,8 @@ function getDriverName() {
   }
 }
 
-async function getDriverPath(version, driverName = getDriverName()) {
-  if (!version) {
-    version = await getDriverVersion();
-  }
-
-  return path.resolve(driversRoot, version, driverName);
+function getDriverPath(driverName = getDriverName()) {
+  return path.resolve(driversRoot, driverName);
 }
 
 async function install() {
@@ -97,7 +93,7 @@ async function install() {
 
   let driverName = getDriverName();
 
-  let driverPath = await getDriverPath(version, driverName);
+  let driverPath = getDriverPath(driverName);
 
   if (await fs.exists(driverPath)) {
     console.log(`Found ${driverPath}, not downloading`);
