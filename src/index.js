@@ -16,7 +16,7 @@ const arch = os.arch();
 
 const downloadHost = 'https://msedgedriver.azureedge.net';
 
-const driversRoot = path.join(__dirname, '../bin/msedgedriver');
+const driversRoot = path.join(__dirname, '../bin');
 
 function getDownloadName() {
   let firstPart;
@@ -63,6 +63,7 @@ async function getDriverVersion() {
 
     let ps = await execa(browserCmd, ['--version']);
 
+    // "Microsoft Edge 105.0.1343.53 "
     version = ps.stdout.match(/(?:\d|\.)+/)[0];
 
     console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
@@ -84,12 +85,8 @@ function getDriverName() {
   }
 }
 
-async function getDriverPath(version, driverName = getDriverName()) {
-  if (!version) {
-    version = await getDriverVersion();
-  }
-
-  return path.resolve(driversRoot, version, driverName);
+function getDriverPath(driverName = getDriverName()) {
+  return path.resolve(driversRoot, driverName);
 }
 
 async function install() {
@@ -97,11 +94,28 @@ async function install() {
 
   let driverName = getDriverName();
 
-  let driverPath = await getDriverPath(version, driverName);
+  let driverPath = getDriverPath(driverName);
+
+  let shouldDownload = true;
 
   if (await fs.exists(driverPath)) {
-    console.log(`Found ${driverPath}, not downloading`);
-  } else {
+    let ps = await execa(driverPath, ['--version']);
+
+    // "Microsoft Edge WebDriver 105.0.1343.53 (3a47f00402d579c8ba1fad7e143f9d73831b6765)"
+    let existingVersion = ps.stdout.match(/(?:\d|\.)+/)[0];
+
+    if (existingVersion === version) {
+      console.log(`Found ${driverPath} at version ${existingVersion}, not downloading`);
+
+      shouldDownload = false;
+    } else {
+      console.log(`Found ${driverPath} at different version ${existingVersion}, redownloading`);
+
+      await fs.unlink(driverPath);
+    }
+  }
+
+  if (shouldDownload) {
     await downloadAndExtract({ version, driverName, driverPath });
   }
 
@@ -174,7 +188,6 @@ async function hackLocalBinSymlink() {
 }
 
 module.exports = {
-  driversRoot,
   getDriverPath,
   install,
 };

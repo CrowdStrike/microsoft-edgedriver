@@ -7,7 +7,7 @@ const execa = require('execa');
 const { getDriverPath } = require('../src');
 
 (async () => {
-  await execa(await getDriverPath(), process.argv.slice(2), {
+  await execa(getDriverPath(), process.argv.slice(2), {
     stdio: 'inherit',
   });
 })();
