@@ -38,8 +38,30 @@ describe(path.basename(installerPath), function() {
     expect(ps.stdout).to.include(oldVersion);
   });
 
+  it('redownloads if different version', async function() {
+    let string = `Found ${driverPath} at different version ${oldVersion}, redownloading`;
+
+    Object.assign(process.env, {
+      EDGEDRIVER_VERSION: oldVersion,
+    });
+
+    let ps = await execa.node(installerPath);
+
+    expect(ps.stdout).to.not.include(string);
+
+    delete process.env.EDGEDRIVER_VERSION;
+
+    ps = await execa.node(installerPath);
+
+    expect(ps.stdout).to.include(string);
+  });
+
   it('doesn\'t redownload same version', async function() {
-    let string = `Found ${driverPath}, not downloading`;
+    let string = `Found ${driverPath} at version ${oldVersion}, not downloading`;
+
+    Object.assign(process.env, {
+      EDGEDRIVER_VERSION: oldVersion,
+    });
 
     let ps = await execa.node(installerPath);
 
