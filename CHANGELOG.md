@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.4.1...v1.4.2) (2022-10-05)
+
+
+### Bug Fixes
+
+* gracefully fails if trying to detect but edge not installed ([ae3f976](https://github.com/CrowdStrike/microsoft-edgedriver/commit/ae3f97642904162ceed614b35a3e553416bfdfcd))
+
 ### [1.4.1](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.4.0...v1.4.1) (2022-10-03)
 
 
