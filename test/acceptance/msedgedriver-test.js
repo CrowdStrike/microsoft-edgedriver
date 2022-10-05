@@ -1,6 +1,6 @@
 'use strict';
 
-const { describe, it, setUpObjectReset } = require('../helpers/mocha');
+const { describe, it } = require('../helpers/mocha');
 const { expect } = require('../helpers/chai');
 const execa = require('execa');
 const path = require('path');
@@ -11,8 +11,6 @@ const binPath = require.resolve('../../bin/msedgedriver.js');
 
 describe(path.basename(binPath), function() {
   this.timeout(30e3);
-
-  setUpObjectReset(process.env);
 
   before(async function() {
     await execa.node(installerPath);
@@ -39,11 +37,11 @@ describe(path.basename(binPath), function() {
   });
 
   it('can find bin even if different version', async function() {
-    Object.assign(process.env, {
-      EDGEDRIVER_VERSION: oldVersion,
+    let ps = execa.node(binPath, [], {
+      env: {
+        EDGEDRIVER_VERSION: oldVersion,
+      },
     });
-
-    let ps = execa.node(binPath);
 
     let isSuccess = false;
 

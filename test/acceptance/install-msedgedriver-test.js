@@ -1,6 +1,6 @@
 'use strict';
 
-const { describe, it, setUpObjectReset } = require('../helpers/mocha');
+const { describe, it } = require('../helpers/mocha');
 const { expect } = require('../helpers/chai');
 const execa = require('execa');
 const fs = require('fs').promises;
@@ -14,8 +14,6 @@ const driverPath = getDriverPath();
 describe(path.basename(installerPath), function() {
   this.timeout(30e3);
 
-  setUpObjectReset(process.env);
-
   beforeEach(async function() {
     await fs.rm(driverPath, { force: true });
   });
@@ -27,11 +25,11 @@ describe(path.basename(installerPath), function() {
   });
 
   it('can pin the version', async function() {
-    Object.assign(process.env, {
-      EDGEDRIVER_VERSION: oldVersion,
+    let ps = await execa.node(installerPath, [], {
+      env: {
+        EDGEDRIVER_VERSION: oldVersion,
+      },
     });
-
-    let ps = await execa.node(installerPath);
 
     expect(driverPath).to.be.a.file();
 
@@ -41,15 +39,13 @@ describe(path.basename(installerPath), function() {
   it('redownloads if different version', async function() {
     let string = `Found ${driverPath} at different version ${oldVersion}, redownloading`;
 
-    Object.assign(process.env, {
-      EDGEDRIVER_VERSION: oldVersion,
+    let ps = await execa.node(installerPath, [], {
+      env: {
+        EDGEDRIVER_VERSION: oldVersion,
+      },
     });
 
-    let ps = await execa.node(installerPath);
-
     expect(ps.stdout).to.not.include(string);
-
-    delete process.env.EDGEDRIVER_VERSION;
 
     ps = await execa.node(installerPath);
 
@@ -59,15 +55,19 @@ describe(path.basename(installerPath), function() {
   it('doesn\'t redownload same version', async function() {
     let string = `Found ${driverPath} at version ${oldVersion}, not downloading`;
 
-    Object.assign(process.env, {
-      EDGEDRIVER_VERSION: oldVersion,
+    let ps = await execa.node(installerPath, [], {
+      env: {
+        EDGEDRIVER_VERSION: oldVersion,
+      },
     });
-
-    let ps = await execa.node(installerPath);
 
     expect(ps.stdout).to.not.include(string);
 
-    ps = await execa.node(installerPath);
+    ps = await execa.node(installerPath, [], {
+      env: {
+        EDGEDRIVER_VERSION: oldVersion,
+      },
+    });
 
     expect(ps.stdout).to.include(string);
   });
@@ -77,11 +77,11 @@ describe(path.basename(installerPath), function() {
       return this.skip();
     }
 
-    Object.assign(process.env, {
-      DETECT_EDGEDRIVER_VERSION: 'true',
+    let ps = await execa.node(installerPath, [], {
+      env: {
+        DETECT_EDGEDRIVER_VERSION: 'true',
+      },
     });
-
-    let ps = await execa.node(installerPath);
 
     expect(driverPath).to.be.a.file();
 
