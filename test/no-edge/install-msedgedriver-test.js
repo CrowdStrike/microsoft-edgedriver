@@ -6,7 +6,6 @@ const execa = require('execa');
 const fs = require('fs').promises;
 const { getDriverPath } = require('../../src');
 const path = require('path');
-const { missingPath } = require('../helpers/edge');
 
 const installerPath = require.resolve('../../bin/install-msedgedriver');
 const driverPath = getDriverPath();
@@ -26,7 +25,6 @@ describe(path.basename(installerPath), function() {
     let ps = await execa.node(installerPath, [], {
       env: {
         DETECT_EDGEDRIVER_VERSION: 'true',
-        EDGE_PATH: missingPath,
       },
     });
 
