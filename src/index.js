@@ -68,11 +68,17 @@ async function getDriverVersion() {
 
     console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
   } else {
-    let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
-
-    // For example: '��102.0.1245.33\r\n'
-    version = body.replace(/[^\d.]/g, '');
+    version = await getLatestDriverVersion();
   }
+
+  return version;
+}
+
+async function getLatestDriverVersion() {
+  let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
+
+  // For example: '��102.0.1245.33\r\n'
+  let version = body.replace(/[^\d.]/g, '');
 
   return version;
 }
