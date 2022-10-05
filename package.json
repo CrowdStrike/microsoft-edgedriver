@@ -66,6 +66,8 @@
     "remark-cli": "^11.0.0",
     "remark-preset-lint-crowdstrike": "^2.0.0",
     "renovate-config-standard": "^2.0.0",
+    "sinon": "^14.0.1",
+    "sinon-chai": "^3.7.0",
     "standard-node-template": "3.0.0",
     "standard-version": "9.5.0"
   }

@@ -47,23 +47,33 @@ function getDownloadName() {
   return `edgedriver_${firstPart}${secondPart}.zip`;
 }
 
-async function getDriverVersion() {
+async function getDriverVersion({
+  versionOverride = process.env.EDGEDRIVER_VERSION,
+  shouldDetectVersion = yn(process.env.DETECT_EDGEDRIVER_VERSION),
+  browserCmd = (() => {
+    switch (platform) {
+      case 'linux': return 'microsoft-edge';
+      case 'darwin': return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
+      default: throw new Error(`Platform "${platform}" not supported`);
+    }
+  })(),
+} = {}) {
   let version;
 
-  if (process.env.EDGEDRIVER_VERSION) {
-    version = process.env.EDGEDRIVER_VERSION;
-  } else if (yn(process.env.DETECT_EDGEDRIVER_VERSION)) {
-    version = await getDetectedDriverVersion();
+  if (versionOverride) {
+    version = versionOverride;
+  } else if (shouldDetectVersion) {
+    version = await getDetectedDriverVersion(browserCmd);
   }
 
   if (!version) {
-    version = await getLatestDriverVersion();
+    version = await module.exports.getLatestDriverVersion();
   }
 
   return version;
 }
 
-async function getDetectedDriverVersion() {
+async function getDetectedDriverVersion(browserCmd) {
   let version;
 
   if (platform === 'win32') {
@@ -83,14 +93,6 @@ async function getDetectedDriverVersion() {
       version = result.version;
     }
   } else {
-    let browserCmd = (() => {
-      switch (platform) {
-        case 'linux': return 'microsoft-edge';
-        case 'darwin': return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
-        default: throw new Error(`Platform "${platform}" not supported`);
-      }
-    })();
-
     let ps;
 
     try {
@@ -236,6 +238,8 @@ async function hackLocalBinSymlink() {
 }
 
 module.exports = {
+  getDriverVersion,
+  getLatestDriverVersion,
   getDriverPath,
   install,
 };
