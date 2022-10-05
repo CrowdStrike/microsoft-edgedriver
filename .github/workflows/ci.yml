@@ -83,6 +83,8 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
     - run: rm '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'
       if: matrix.os == 'macos-latest'
+    - run: del 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+      if: matrix.os == 'windows-latest'
 
     - run: yarn install --frozen-lockfile
     - run: yarn test --config .mocharc.no-edge.js

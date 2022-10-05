@@ -66,28 +66,48 @@ async function getDriverVersion() {
 async function getDetectedDriverVersion() {
   let version;
 
-  let browserCmd = (() => {
-    switch (platform) {
-      case 'linux': return 'microsoft-edge';
-      case 'darwin': return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
-      default: throw new Error(`Platform "${platform}" not supported`);
+  if (platform === 'win32') {
+    const findEdgeVersion = require('find-edge-version');
+
+    let result;
+
+    try {
+      result = await findEdgeVersion();
+    } catch (err) {
+      if (err.message !== 'MS Edge browser is not found') {
+        throw err;
+      }
     }
-  })();
 
-  let ps;
+    if (result) {
+      version = result.version;
+    }
+  } else {
+    let browserCmd = (() => {
+      switch (platform) {
+        case 'linux': return 'microsoft-edge';
+        case 'darwin': return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
+        default: throw new Error(`Platform "${platform}" not supported`);
+      }
+    })();
 
-  try {
-    ps = await execa(browserCmd, ['--version']);
-  } catch (err) {
-    if (err.code !== 'ENOENT') {
-      throw err;
+    let ps;
+
+    try {
+      ps = await execa(browserCmd, ['--version']);
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        throw err;
+      }
+    }
+
+    if (ps) {
+      // "Microsoft Edge 105.0.1343.53 "
+      version = ps.stdout.match(/(?:\d|\.)+/)[0];
     }
   }
 
-  if (ps) {
-    // "Microsoft Edge 105.0.1343.53 "
-    version = ps.stdout.match(/(?:\d|\.)+/)[0];
-
+  if (version) {
     console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
   } else {
     console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, but Microsoft Edge install not found`);

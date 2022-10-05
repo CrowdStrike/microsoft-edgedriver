@@ -73,10 +73,6 @@ describe(path.basename(installerPath), function() {
   });
 
   it('can detect the version', async function() {
-    if (process.platform === 'win32') {
-      return this.skip();
-    }
-
     let ps = await execa.node(installerPath, [], {
       env: {
         DETECT_EDGEDRIVER_VERSION: 'true',
