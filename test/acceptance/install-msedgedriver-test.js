@@ -6,8 +6,8 @@ const execa = require('execa');
 const fs = require('fs').promises;
 const { getDriverPath } = require('../../src');
 const path = require('path');
+const { oldVersion } = require('../helpers/edge');
 
-const oldVersion = '102.0.1245.33';
 const installerPath = require.resolve('../../bin/install-msedgedriver');
 const driverPath = getDriverPath();
 

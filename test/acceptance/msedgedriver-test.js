@@ -4,8 +4,8 @@ const { describe, it, setUpObjectReset } = require('../helpers/mocha');
 const { expect } = require('../helpers/chai');
 const execa = require('execa');
 const path = require('path');
+const { oldVersion } = require('../helpers/edge');
 
-const oldVersion = '102.0.1245.33';
 const installerPath = require.resolve('../../bin/install-msedgedriver');
 const binPath = require.resolve('../../bin/msedgedriver.js');
 
