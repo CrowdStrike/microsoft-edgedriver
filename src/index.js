@@ -96,7 +96,7 @@ async function getDetectedDriverVersion() {
 
     console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
   } else {
-    console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, but ${browserCmd} not found`);
+    console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, but Microsoft Edge install not found`);
   }
 
   return version;
