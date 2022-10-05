@@ -53,7 +53,13 @@ async function getDriverVersion() {
   if (process.env.EDGEDRIVER_VERSION) {
     version = process.env.EDGEDRIVER_VERSION;
   } else if (yn(process.env.DETECT_EDGEDRIVER_VERSION)) {
-    const browserCmd = (() => {
+    let browserCmd = (() => {
+      let edgePathOverride = process.env.EDGE_PATH;
+
+      if (edgePathOverride) {
+        return edgePathOverride;
+      }
+
       switch (platform) {
         case 'linux': return 'microsoft-edge';
         case 'darwin': return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
@@ -61,13 +67,27 @@ async function getDriverVersion() {
       }
     })();
 
-    let ps = await execa(browserCmd, ['--version']);
+    let ps;
 
-    // "Microsoft Edge 105.0.1343.53 "
-    version = ps.stdout.match(/(?:\d|\.)+/)[0];
+    try {
+      ps = await execa(browserCmd, ['--version']);
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        throw err;
+      }
+    }
 
-    console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
-  } else {
+    if (ps) {
+      // "Microsoft Edge 105.0.1343.53 "
+      version = ps.stdout.match(/(?:\d|\.)+/)[0];
+
+      console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, detected version ${version}`);
+    } else {
+      console.log(`DETECT_EDGEDRIVER_VERSION=${process.env.DETECT_EDGEDRIVER_VERSION}, but ${browserCmd} not found`);
+    }
+  }
+
+  if (!version) {
     version = await getLatestDriverVersion();
   }
 
