@@ -1,6 +1,6 @@
 {
   "name": "microsoft-edgedriver",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Install and wrap msedgedriver in Node.js",
   "bin": {
     "msedgedriver": "bin/msedgedriver.js"
