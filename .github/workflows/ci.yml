@@ -59,8 +59,36 @@ jobs:
     - run: yarn install --frozen-lockfile
     - run: yarn test
 
+  test-no-edge:
+    needs: lint
+
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+        node:
+        - 14
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node }}
+
+    - run: sudo rm $(which microsoft-edge)
+      if: matrix.os == 'ubuntu-latest'
+    - run: rm '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'
+      if: matrix.os == 'macos-latest'
+
+    - run: yarn install --frozen-lockfile
+    - run: yarn test --config .mocharc.no-edge.js
+
   ember-cli-update:
-    needs: test
+    needs: [test, test-no-edge]
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
 
     runs-on: ubuntu-latest

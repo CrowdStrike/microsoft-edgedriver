@@ -67,12 +67,6 @@ async function getDetectedDriverVersion() {
   let version;
 
   let browserCmd = (() => {
-    let edgePathOverride = process.env.EDGE_PATH;
-
-    if (edgePathOverride) {
-      return edgePathOverride;
-    }
-
     switch (platform) {
       case 'linux': return 'microsoft-edge';
       case 'darwin': return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
