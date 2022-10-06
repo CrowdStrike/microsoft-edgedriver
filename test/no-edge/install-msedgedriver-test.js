@@ -30,8 +30,6 @@ describe(path.basename(installerPath), function() {
 
     expect(driverPath).to.be.a.file();
 
-    console.log(ps.stdout);
-
     expect(ps.stdout).to.include('DETECT_EDGEDRIVER_VERSION=true, but Microsoft Edge install not found');
   });
 });
