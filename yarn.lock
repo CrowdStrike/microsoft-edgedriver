@@ -1507,6 +1507,11 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
+find-edge-version@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/find-edge-version/-/find-edge-version-0.1.1.tgz#10f9f44db2040a8af969e57bcb463a228431b232"
+  integrity sha512-2OQrHc1Wlg+BIJrRez3+ufcFLpuxukUqZI/o9QlGRFbdRCh7k+IhT0L9ZUh52+beg/rg77wv4cjLnmMkJMbkuQ==
+
 find-up@5.0.0, find-up@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/find-up/-/find-up-5.0.0.tgz#4c92819ecb7083561e4f4a240a86be5198f536fc"

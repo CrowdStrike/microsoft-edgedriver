@@ -18,10 +18,6 @@ describe(path.basename(installerPath), function() {
   });
 
   it('gracefully fails if trying to detect but edge not installed', async function() {
-    if (process.platform === 'win32') {
-      return this.skip();
-    }
-
     let ps = await execa.node(installerPath, [], {
       env: {
         DETECT_EDGEDRIVER_VERSION: 'true',
