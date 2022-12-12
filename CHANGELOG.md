@@ -2,72 +2,72 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.5.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.4.2...v1.5.0) (2022-10-06)
+## [1.5.0](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.4.2...v1.5.0) (2022-10-06)
 
 
 ### Features
 
-* use `find-edge-version` to support `DETECT_EDGEDRIVER_VERSION` on windows ([a479593](https://github.com/CrowdStrike/microsoft-edgedriver/commit/a4795934ec239b29423c193b760789111f795121))
+* use `find-edge-version` to support `DETECT_EDGEDRIVER_VERSION` on windows ([a479593](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/a4795934ec239b29423c193b760789111f795121))
 
 
 ### Bug Fixes
 
-* run missing edge test for real without EDGE_PATH hack ([3e8efa7](https://github.com/CrowdStrike/microsoft-edgedriver/commit/3e8efa72d640ad4e27f529b0181d20abd0de3471))
+* run missing edge test for real without EDGE_PATH hack ([3e8efa7](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/3e8efa72d640ad4e27f529b0181d20abd0de3471))
 
-### [1.4.2](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.4.1...v1.4.2) (2022-10-05)
-
-
-### Bug Fixes
-
-* gracefully fails if trying to detect but edge not installed ([ae3f976](https://github.com/CrowdStrike/microsoft-edgedriver/commit/ae3f97642904162ceed614b35a3e553416bfdfcd))
-
-### [1.4.1](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.4.0...v1.4.1) (2022-10-03)
+### [1.4.2](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.4.1...v1.4.2) (2022-10-05)
 
 
 ### Bug Fixes
 
-* check existing version before redownloading ([2101c54](https://github.com/CrowdStrike/microsoft-edgedriver/commit/2101c54ffa73be6390d0e3be276126b5afb8efa9))
+* gracefully fails if trying to detect but edge not installed ([ae3f976](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/ae3f97642904162ceed614b35a3e553416bfdfcd))
 
-## [1.4.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.3.1...v1.4.0) (2022-09-30)
+### [1.4.1](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.4.0...v1.4.1) (2022-10-03)
+
+
+### Bug Fixes
+
+* check existing version before redownloading ([2101c54](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/2101c54ffa73be6390d0e3be276126b5afb8efa9))
+
+## [1.4.0](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.3.1...v1.4.0) (2022-09-30)
 
 
 ### Features
 
-* add version detection ([fd93c87](https://github.com/CrowdStrike/microsoft-edgedriver/commit/fd93c8708c9753d33400097f21e50a5338b45798))
+* add version detection ([fd93c87](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/fd93c8708c9753d33400097f21e50a5338b45798))
 
 
 ### Bug Fixes
 
-* await execa ([8e8ba6e](https://github.com/CrowdStrike/microsoft-edgedriver/commit/8e8ba6e71205d1743f0b0847a447ef34ea090893))
+* await execa ([8e8ba6e](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/8e8ba6e71205d1743f0b0847a447ef34ea090893))
 
-### [1.3.1](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.3.0...v1.3.1) (2022-09-30)
+### [1.3.1](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.3.0...v1.3.1) (2022-09-30)
 
 
 ### Bug Fixes
 
-* prevent EXDEV errors ([56d6990](https://github.com/CrowdStrike/microsoft-edgedriver/commit/56d69908c1cf07844fbf87332866df74f94f5c7d))
+* prevent EXDEV errors ([56d6990](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/56d69908c1cf07844fbf87332866df74f94f5c7d))
 
-## [1.3.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.2.0...v1.3.0) (2022-09-30)
-
-
-### Features
-
-* don't redownload existing versions ([ec92fd3](https://github.com/CrowdStrike/microsoft-edgedriver/commit/ec92fd3610b5065aa8ed6657334b5e975b7932da))
-
-## [1.2.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.1.0...v1.2.0) (2022-09-30)
+## [1.3.0](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.2.0...v1.3.0) (2022-09-30)
 
 
 ### Features
 
-* store bin by version ([e077763](https://github.com/CrowdStrike/microsoft-edgedriver/commit/e0777635bb6a20e9dc31535fc66a70852abbf116))
-* store bin in dir ([52bd92b](https://github.com/CrowdStrike/microsoft-edgedriver/commit/52bd92b82ff4f97aecdbe360921402a514129487))
+* don't redownload existing versions ([ec92fd3](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/ec92fd3610b5065aa8ed6657334b5e975b7932da))
 
-## [1.1.0](https://github.com/CrowdStrike/microsoft-edgedriver/compare/v1.0.0...v1.1.0) (2022-09-29)
+## [1.2.0](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.1.0...v1.2.0) (2022-09-30)
 
 
 ### Features
 
-* download to system tmp ([529cc64](https://github.com/CrowdStrike/microsoft-edgedriver/commit/529cc64af5c1967f2e456ccf09c4132eca1fd555))
+* store bin by version ([e077763](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/e0777635bb6a20e9dc31535fc66a70852abbf116))
+* store bin in dir ([52bd92b](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/52bd92b82ff4f97aecdbe360921402a514129487))
+
+## [1.1.0](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v1.0.0...v1.1.0) (2022-09-29)
+
+
+### Features
+
+* download to system tmp ([529cc64](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/529cc64af5c1967f2e456ccf09c4132eca1fd555))
 
 ## 1.0.0 (2022-09-28)
 
@@ -78,4 +78,4 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* add implementation ([05478e7](https://github.com/CrowdStrike/microsoft-edgedriver/commit/05478e720b26a20bcc6e89a1f39cf2315cd0a287))
+* add implementation ([05478e7](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/05478e720b26a20bcc6e89a1f39cf2315cd0a287))

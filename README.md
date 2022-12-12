@@ -1,6 +1,6 @@
-# microsoft-edgedriver
+# browser-webdriver-downloader
 
-[![npm version](https://badge.fury.io/js/microsoft-edgedriver.svg)](https://badge.fury.io/js/microsoft-edgedriver)
+[![npm version](https://badge.fury.io/js/browser-webdriver-downloader.svg)](https://badge.fury.io/js/browser-webdriver-downloader)
 
 Install and wrap msedgedriver in Node.js
 
