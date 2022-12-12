@@ -1,5 +1,5 @@
 {
-  "name": "microsoft-edgedriver",
+  "name": "browser-webdriver-downloader",
   "version": "1.5.0",
   "description": "Install and wrap msedgedriver in Node.js",
   "bin": {
@@ -30,14 +30,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/CrowdStrike/microsoft-edgedriver.git"
+    "url": "git+ssh://git@github.com/CrowdStrike/browser-webdriver-downloader.git"
   },
   "author": "Kelly Selden",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CrowdStrike/microsoft-edgedriver/issues"
+    "url": "https://github.com/CrowdStrike/browser-webdriver-downloader/issues"
   },
-  "homepage": "https://github.com/CrowdStrike/microsoft-edgedriver#readme",
+  "homepage": "https://github.com/CrowdStrike/browser-webdriver-downloader#readme",
   "engines": {
     "node": ">=14.15"
   },
