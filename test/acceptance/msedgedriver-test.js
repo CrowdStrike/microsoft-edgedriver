@@ -2,7 +2,6 @@
 
 const { describe, it } = require('../helpers/mocha');
 const { expect } = require('../helpers/chai');
-const execa = require('execa');
 const path = require('path');
 const { oldVersion } = require('../helpers/edge');
 
@@ -13,11 +12,15 @@ describe(path.basename(binPath), function() {
   this.timeout(30e3);
 
   before(async function() {
-    await execa.node(installerPath);
+    const { execaNode } = await import('execa');
+
+    await execaNode(installerPath);
   });
 
   it('works', async function() {
-    let ps = execa.node(binPath);
+    const { execaNode } = await import('execa');
+
+    let ps = execaNode(binPath);
 
     let isSuccess = false;
 
@@ -37,7 +40,9 @@ describe(path.basename(binPath), function() {
   });
 
   it('can find bin even if different version', async function() {
-    let ps = execa.node(binPath, [], {
+    const { execaNode } = await import('execa');
+
+    let ps = execaNode(binPath, [], {
       env: {
         EDGEDRIVER_VERSION: oldVersion,
       },
