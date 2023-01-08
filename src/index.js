@@ -7,7 +7,6 @@ const extractZip = require('extract-zip');
 const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
 const { createTmpDir } = require('../src/tmp');
-const yn = require('yn');
 
 const platform = os.platform();
 const arch = os.arch();
@@ -47,6 +46,8 @@ function getDownloadName() {
 
 async function getDriverVersion() {
   let version;
+
+  const { default: yn } = await import('yn');
 
   if (process.env.EDGEDRIVER_VERSION) {
     version = process.env.EDGEDRIVER_VERSION;
