@@ -7,7 +7,7 @@ module.exports = {
   ],
   parserOptions: {
     // eslint bug, not inheriting from eslint-config-crowdstrike correctly
-    ecmaVersion: 2020,
+    ecmaVersion: require('eslint-config-crowdstrike').parserOptions.ecmaVersion,
   },
   overrides: [
     {
