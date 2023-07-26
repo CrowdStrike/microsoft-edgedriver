@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/CrowdStrike/browser-webdriver-downloader#readme",
   "engines": {
-    "node": ">=14.15"
+    "node": ">=16.13"
   },
   "dependencies": {
     "execa": "^7.0.0",
@@ -66,7 +66,7 @@
     "remark-cli": "^11.0.0",
     "remark-preset-lint-crowdstrike": "^2.0.0",
     "renovate-config-standard": "^2.0.0",
-    "standard-node-template": "3.2.1",
+    "standard-node-template": "3.3.0",
     "standard-version": "9.5.0"
   }
 }
