@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/CrowdStrike/browser-webdriver-downloader#readme",
   "engines": {
-    "node": ">=14.15"
+    "node": ">=16.13"
   },
   "dependencies": {
     "execa": "^7.0.0",
