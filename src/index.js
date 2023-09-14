@@ -1,5 +1,6 @@
 'use strict';
 
+const got = require('got');
 const { promisify } = require('util');
 const fs = { ...require('fs'), ...require('fs').promises, ...require('../src/fs') };
 const path = require('path');
@@ -7,6 +8,8 @@ const extractZip = require('extract-zip');
 const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
 const { createTmpDir } = require('../src/tmp');
+const execa = require('execa');
+const yn = require('yn');
 
 const platform = os.platform();
 const arch = os.arch();
@@ -46,8 +49,6 @@ function getDownloadName() {
 
 async function getDriverVersion() {
   let version;
-
-  const { default: yn } = await import('yn');
 
   if (process.env.EDGEDRIVER_VERSION) {
     version = process.env.EDGEDRIVER_VERSION;
@@ -92,8 +93,6 @@ async function getDetectedDriverVersion() {
 
     let ps;
 
-    const { execa } = await import('execa');
-
     try {
       ps = await execa(browserCmd, ['--version']);
     } catch (err) {
@@ -118,9 +117,6 @@ async function getDetectedDriverVersion() {
 }
 
 async function getLatestDriverVersion() {
-  // eslint-disable-next-line node/no-missing-import
-  const { got } = await import('got');
-
   let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
 
   // For example: '��102.0.1245.33\r\n'
@@ -151,8 +147,6 @@ async function install() {
   let shouldDownload = true;
 
   if (await fs.exists(driverPath)) {
-    const { execa } = await import('execa');
-
     let ps = await execa(driverPath, ['--version']);
 
     // "Microsoft Edge WebDriver 105.0.1343.53 (3a47f00402d579c8ba1fad7e143f9d73831b6765)"
@@ -196,9 +190,6 @@ async function download({ tmpPath, version }) {
   let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
 
   console.log(`Downloading ${downloadUrl}...`);
-
-  // eslint-disable-next-line node/no-missing-import
-  const { got } = await import('got');
 
   await pipeline(
     got.stream(downloadUrl),

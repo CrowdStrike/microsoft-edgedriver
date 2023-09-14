@@ -2,6 +2,7 @@
 
 const { describe, it } = require('../helpers/mocha');
 const { expect } = require('../helpers/chai');
+const execa = require('execa');
 const fs = require('fs').promises;
 const { getDriverPath } = require('../../src');
 const path = require('path');
@@ -17,9 +18,7 @@ describe(path.basename(installerPath), function() {
   });
 
   it('gracefully fails if trying to detect but edge not installed', async function() {
-    const { execaNode } = await import('execa');
-
-    let ps = await execaNode(installerPath, [], {
+    let ps = await execa.node(installerPath, [], {
       env: {
         DETECT_EDGEDRIVER_VERSION: 'true',
       },
