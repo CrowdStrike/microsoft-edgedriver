@@ -48,7 +48,7 @@
     "fs-extra": "^11.0.0",
     "got": "^11.8.5",
     "tmp": "0.2.1",
-    "yn": "^4.0.0"
+    "yn": "^5.0.0"
   },
   "devDependencies": {
     "@crowdstrike/commitlint": "^7.0.0",
