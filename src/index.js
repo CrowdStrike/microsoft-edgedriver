@@ -1,6 +1,5 @@
 'use strict';
 
-const got = require('got');
 const { promisify } = require('util');
 const fs = { ...require('fs'), ...require('fs').promises, ...require('../src/fs') };
 const path = require('path');
@@ -118,6 +117,9 @@ async function getDetectedDriverVersion() {
 }
 
 async function getLatestDriverVersion() {
+  // eslint-disable-next-line node/no-missing-import
+  const { got } = await import('got');
+
   let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
 
   // For example: '��102.0.1245.33\r\n'
@@ -191,6 +193,9 @@ async function download({ tmpPath, version }) {
   let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
 
   console.log(`Downloading ${downloadUrl}...`);
+
+  // eslint-disable-next-line node/no-missing-import
+  const { got } = await import('got');
 
   await pipeline(
     got.stream(downloadUrl),
