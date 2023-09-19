@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.4](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v2.0.3...v2.0.4) (2023-09-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency got to v12 ([744dfe8](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/744dfe8760fcef85a92bfe4679c6b60f13defdbf))
+
 ### [2.0.3](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v2.0.2...v2.0.3) (2023-09-18)
 
 
