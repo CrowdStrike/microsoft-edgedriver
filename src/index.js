@@ -140,7 +140,23 @@ function getDriverPath(driverName = getDriverName()) {
   return path.resolve(driversRoot, driverName);
 }
 
+async function shouldSkipDownload() {
+  const { default: yn } = await import('yn');
+
+  let shouldSkipDownload = yn(process.env.SKIP_EDGEDRIVER_DOWNLOAD);
+
+  if (shouldSkipDownload) {
+    console.log(`SKIP_EDGEDRIVER_DOWNLOAD=${process.env.SKIP_EDGEDRIVER_DOWNLOAD}, skipping download`);
+  }
+
+  return shouldSkipDownload;
+}
+
 async function install() {
+  if (await shouldSkipDownload()) {
+    return;
+  }
+
   let version = await getDriverVersion();
 
   let driverName = getDriverName();
