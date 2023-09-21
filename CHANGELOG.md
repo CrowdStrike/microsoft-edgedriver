@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v2.0.6...v2.1.0) (2023-09-21)
+
+
+### Features
+
+* add SKIP_EDGEDRIVER_DOWNLOAD ([7e3b0fc](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/7e3b0fcbd023c095f1fbfa5afcae2974cbaacebb)), closes [#34](https://github.com/CrowdStrike/browser-webdriver-downloader/issues/34)
+
 ### [2.0.6](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v2.0.5...v2.0.6) (2023-09-21)
 
 ### [2.0.5](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v2.0.4...v2.0.5) (2023-09-21)
