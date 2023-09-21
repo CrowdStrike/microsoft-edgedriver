@@ -83,4 +83,16 @@ describe(path.basename(installerPath), function() {
 
     expect(ps.stdout).to.include('DETECT_EDGEDRIVER_VERSION=true, detected version ');
   });
+
+  it('can skip download', async function() {
+    let ps = await execa.node(installerPath, [], {
+      env: {
+        SKIP_EDGEDRIVER_DOWNLOAD: 'true',
+      },
+    });
+
+    expect(driverPath).to.not.be.a.path();
+
+    expect(ps.stdout).to.include('SKIP_EDGEDRIVER_DOWNLOAD=true, skipping download');
+  });
 });
