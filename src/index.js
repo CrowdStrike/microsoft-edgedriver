@@ -8,6 +8,8 @@ const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
 const { createTmpDir } = require('../src/tmp');
 const execa = require('execa');
+const { getProxyForUrl } = require('proxy-from-env');
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 const platform = os.platform();
 const arch = os.arch();
@@ -118,10 +120,12 @@ async function getDetectedDriverVersion() {
 }
 
 async function getLatestDriverVersion() {
+  let options = getGotOptions(latestVersionUrl);
+
   // eslint-disable-next-line node/no-missing-import
   const { got } = await import('got');
 
-  let { body } = await got.get(latestVersionUrl);
+  let { body } = await got.get(latestVersionUrl, options);
 
   // For example: '��102.0.1245.33\r\n'
   let version = body.replace(/[^\d.]/g, '');
@@ -209,13 +213,15 @@ async function download({ tmpPath, version }) {
 
   let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
 
+  let options = getGotOptions(downloadUrl);
+
   console.log(`Downloading ${downloadUrl}...`);
 
   // eslint-disable-next-line node/no-missing-import
   const { got } = await import('got');
 
   await pipeline(
-    got.stream(downloadUrl),
+    got.stream(downloadUrl, options),
     fs.createWriteStream(downloadPath),
   );
 
@@ -258,7 +264,23 @@ async function hackLocalBinSymlink() {
   }
 }
 
+function getGotOptions(url) {
+  let options = {};
+
+  let proxyUrl = getProxyForUrl(url);
+
+  if (proxyUrl) {
+    options.agent = {
+      ...options.agent,
+      https: new HttpsProxyAgent(proxyUrl),
+    };
+  }
+
+  return options;
+}
+
 module.exports = {
   getDriverPath,
   install,
+  getGotOptions,
 };
