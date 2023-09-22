@@ -271,4 +271,5 @@ function getGotOptions() {
 module.exports = {
   getDriverPath,
   install,
+  getGotOptions,
 };
