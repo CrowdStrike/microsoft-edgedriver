@@ -118,10 +118,12 @@ async function getDetectedDriverVersion() {
 }
 
 async function getLatestDriverVersion() {
+  let options = getGotOptions();
+
   // eslint-disable-next-line node/no-missing-import
   const { got } = await import('got');
 
-  let { body } = await got.get(latestVersionUrl);
+  let { body } = await got.get(latestVersionUrl, options);
 
   // For example: '��102.0.1245.33\r\n'
   let version = body.replace(/[^\d.]/g, '');
@@ -209,13 +211,15 @@ async function download({ tmpPath, version }) {
 
   let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
 
+  let options = getGotOptions();
+
   console.log(`Downloading ${downloadUrl}...`);
 
   // eslint-disable-next-line node/no-missing-import
   const { got } = await import('got');
 
   await pipeline(
-    got.stream(downloadUrl),
+    got.stream(downloadUrl, options),
     fs.createWriteStream(downloadPath),
   );
 
@@ -256,6 +260,12 @@ async function hackLocalBinSymlink() {
 
     console.log(`${dest} -> ${source}`);
   }
+}
+
+function getGotOptions() {
+  let options = {};
+
+  return options;
 }
 
 module.exports = {
