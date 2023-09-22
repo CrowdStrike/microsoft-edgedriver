@@ -9,3 +9,5 @@ Setting `EDGEDRIVER_VERSION` will prevent it from downloading latest, for exampl
 Setting `DETECT_EDGEDRIVER_VERSION=true` will match your installed Edge version.
 
 Setting `SKIP_EDGEDRIVER_DOWNLOAD=true` will skip the download.
+
+Any supported proxy config from [proxy-from-env](https://www.npmjs.com/package/proxy-from-env) will work.

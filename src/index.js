@@ -8,6 +8,8 @@ const pipeline = promisify(require('stream').pipeline);
 const os = require('os');
 const { createTmpDir } = require('../src/tmp');
 const execa = require('execa');
+const { getProxyForUrl } = require('proxy-from-env');
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 const platform = os.platform();
 const arch = os.arch();
@@ -118,7 +120,7 @@ async function getDetectedDriverVersion() {
 }
 
 async function getLatestDriverVersion() {
-  let options = getGotOptions();
+  let options = getGotOptions(latestVersionUrl);
 
   // eslint-disable-next-line node/no-missing-import
   const { got } = await import('got');
@@ -211,7 +213,7 @@ async function download({ tmpPath, version }) {
 
   let downloadUrl = `${downloadHost}/${version}/${downloadName}`;
 
-  let options = getGotOptions();
+  let options = getGotOptions(downloadUrl);
 
   console.log(`Downloading ${downloadUrl}...`);
 
@@ -262,8 +264,17 @@ async function hackLocalBinSymlink() {
   }
 }
 
-function getGotOptions() {
+function getGotOptions(url) {
   let options = {};
+
+  let proxyUrl = getProxyForUrl(url);
+
+  if (proxyUrl) {
+    options.agent = {
+      ...options.agent,
+      https: new HttpsProxyAgent(proxyUrl),
+    };
+  }
 
   return options;
 }
