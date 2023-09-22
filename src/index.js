@@ -13,6 +13,7 @@ const platform = os.platform();
 const arch = os.arch();
 
 const downloadHost = 'https://msedgedriver.azureedge.net';
+const latestVersionUrl = `${downloadHost}/LATEST_STABLE`;
 
 const driversRoot = path.join(__dirname, '../bin');
 
@@ -120,7 +121,7 @@ async function getLatestDriverVersion() {
   // eslint-disable-next-line node/no-missing-import
   const { got } = await import('got');
 
-  let { body } = await got.get(`${downloadHost}/LATEST_STABLE`);
+  let { body } = await got.get(latestVersionUrl);
 
   // For example: '��102.0.1245.33\r\n'
   let version = body.replace(/[^\d.]/g, '');
