@@ -40,7 +40,6 @@ jobs:
     needs: lint
 
     strategy:
-      fail-fast: false
       matrix:
         os:
         # edgedriver isn't publishing to these envs
@@ -65,7 +64,6 @@ jobs:
     needs: lint
 
     strategy:
-      fail-fast: false
       matrix:
         os:
         # edgedriver isn't publishing to these envs
