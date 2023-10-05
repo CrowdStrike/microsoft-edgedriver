@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v2.2.3...v3.0.0) (2023-10-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* update min node 18
+
+* Merge pull request #81 from CrowdStrike/renovate/standard-node-template-4.x ([852e36b](https://github.com/CrowdStrike/browser-webdriver-downloader/commit/852e36bd21178e146fde01b4f28a5aaf63eaec9f)), closes [#81](https://github.com/CrowdStrike/browser-webdriver-downloader/issues/81)
+
 ### [2.2.3](https://github.com/CrowdStrike/browser-webdriver-downloader/compare/v2.2.2...v2.2.3) (2023-09-27)
 
 
